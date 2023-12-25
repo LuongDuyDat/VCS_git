@@ -18,18 +18,6 @@ getStorageFreeSpace() {
     echo $total;
 }
 
-getDirectory() {
-    local directories=$(sudo find "$PWD" / -maxdepth 2 -type d 2>/dev/null);
-    IFS=$'\n' read -rd '' -a d_arr <<< "$directories";
-    for (( i = 0; i < ${#d_arr[*]}; i++ ))
-    do
-        priviledge=$(sudo ls -ld ${d_arr[i]} 2>/dev/null | tr -s ' ' | cut -d' ' -f1);
-        if [[ $priviledge =~ d......rw. ]]; then
-            echo ${d_arr[i]};
-        fi;    
-    done;    
-}
-
 name=$(hostname);
 osname=$(cut -c 19- <<< $(hostnamectl | grep "Operating System"));
 
@@ -47,7 +35,7 @@ root_processes=$(ps -U root -u root u --sort cmd);
 
 open_ports=$(netstat -tulpn);
 
-d_list=$(getDirectory);
+d_list=$(find / -type d -perm -o=w 2>/dev/null);
 
 echo "[Thong tin he thong]";
 echo '';
