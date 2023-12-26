@@ -51,7 +51,7 @@ getFileDeleted() {
         IFS=$'\n' read -rd '' -a file_arr <<< "$file_list";
         IFS=$'\n' read -rd '' -a old_file_arr <<< "$old_file_list";
         j=0;
-        for (( i = 1; i < ${#old_file_arr[*]}; i++ ))
+        for (( i = 0; i < ${#old_file_arr[*]}; i++ ))
         do
             while [ $j -le ${#file_arr[*]} ] && [[ "${old_file_arr[i]}" > "${file_arr[j]}" ]]
             do
