@@ -19,10 +19,15 @@ getFileCreated() {
             time_now_in_seconds=$(( ((10#$(date '+%H')*60)+10#$(date '+%M'))*60+10#$(date '+%S') ));
             if [ $(( $time_now_in_seconds - $time_in_seconds )) -le 1800 ]
             then
-                head_file=$(sudo tail $file_path | tr -d '\0');
-                printf "%s\n\n" $file_path;
-                printf "%s\n" "$head_file";
-                printf "\n";
+                if [[ $file_path =~ \.txt$ ]]
+                then
+                    head_file=$(sudo tail $file_path | tr -d '\0');
+                    printf "%s\n\n" $file_path;
+                    printf "%s\n" "$head_file";
+                    printf "\n";
+                else
+                    printf "%s\n\n" $file_path;
+                fi;     
             fi;    
             
         fi;    
@@ -34,10 +39,15 @@ getFileCreated() {
             time_now_in_seconds=$(( (($(date '+%H')*60)+$(date '+%M'))*60+$(date '+%S') ));
             if [ $(( $(( 24*60-$time_in_seconds + $time_now_inseconds  )) -le 1800 )) ]
             then
-                head_file=$(sudo tail $file_path | tr -d '\0');
-                printf "%s\n\n" $file_path;
-                printf "%s\n" "$head_file";
-                printf "\n";
+                if [[ $file_path =~ \.txt$ ]]
+                then
+                    head_file=$(sudo tail $file_path | tr -d '\0');
+                    printf "%s\n\n" $file_path;
+                    printf "%s\n" "$head_file";
+                    printf "\n";
+                else
+                    printf "%s\n\n" $file_path;
+                fi;   
             fi;
         fi;      
     done;    
